@@ -405,6 +405,8 @@ export const products = [
   },
 ];
 
+const publicImage = (name) => `${process.env.PUBLIC_URL || ""}/images/${name}`;
+
 export const services = [
   {
     id: 1,
@@ -420,7 +422,7 @@ export const services = [
     description:
       "Get back on the road quickly with genuine Hero parts, trained technicians, and dependable warranty-backed workmanship.",
     icon: "Zap",
-    image: "/images/express-repair.jpg",
+    image: publicImage("express-repair.jpg"),
   },
   {
     id: 3,
@@ -428,7 +430,7 @@ export const services = [
     description:
       "Get dependable support when you need it, with practical help for common breakdowns and urgent bike issues.",
     icon: "Phone",
-    image: "/images/roadside-assistance.jpg",
+    image: publicImage("roadside-assistance.jpg"),
   },
   {
     id: 4,
