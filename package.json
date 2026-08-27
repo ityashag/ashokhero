@@ -2,6 +2,7 @@
   "name": "ashok-sales-frontend",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://ityashag.github.io/ashokhero",
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "@radix-ui/react-avatar": "^1.1.2",

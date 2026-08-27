@@ -24,7 +24,7 @@ const HomePage = () => (
 );
 
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Routes>
       <Route path="/" element={<HomePage />} />
     </Routes>
