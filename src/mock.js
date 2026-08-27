@@ -405,7 +405,8 @@ export const products = [
   },
 ];
 
-const publicImage = (name) => `${process.env.PUBLIC_URL || ""}/images/${name}`;
+const publicImage = (name) =>
+  `https://ityashag.github.io/ashokhero/images/${name}`;
 
 export const services = [
   {
