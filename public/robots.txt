@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ityashag.github.io/ashokhero/sitemap.xml

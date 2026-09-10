@@ -411,35 +411,35 @@ const publicImage = (name) =>
 export const services = [
   {
     id: 1,
-    title: "Regular Service",
+    title: "Test Ride & Purchase",
     description:
-      "Comprehensive multi-point check with genuine Hero parts and Hero-certified expert technicians.",
-    icon: "Settings",
-    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80",
+      "Shortlist a model online, then confirm a showroom test ride, available colour and delivery timeline.",
+    icon: "Zap",
+    image: publicImage("monsoon-riding.jpg"),
   },
   {
     id: 2,
-    title: "Express Repair",
+    title: "Service Support",
     description:
-      "Get back on the road quickly with genuine Hero parts, trained technicians, and dependable warranty-backed workmanship.",
-    icon: "Zap",
+      "Contact the workshop for periodic maintenance, inspection, repair and genuine-parts enquiries.",
+    icon: "Settings",
     image: publicImage("express-repair.jpg"),
   },
   {
     id: 3,
-    title: "Roadside Assistance",
+    title: "Exchange Assistance",
     description:
-      "Get dependable support when you need it, with practical help for common breakdowns and urgent bike issues.",
+      "Bring your current two-wheeler for a physical inspection and a showroom-confirmed exchange estimate.",
     icon: "Phone",
     image: publicImage("roadside-assistance.jpg"),
   },
   {
     id: 4,
-    title: "Easy Financing",
+    title: "Finance Guidance",
     description:
-      "Same-day loan approvals from Hero FinCorp, SBI, HDFC and more — ride home today.",
+      "Ask about available lenders, down-payment options and indicative EMI; approval depends on lender checks.",
     icon: "CreditCard",
-    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
+    image: publicImage("mileage-tips.jpg"),
   },
 ];
 
@@ -507,6 +507,7 @@ export const testimonials = [
 
 export const dealerInfo = {
   name: "Ashok Hero",
+  legalName: "Ashok Sales - Hero MotoCorp",
   tagline:
     "Bareilly's trusted authorized Hero MotoCorp dealer — delivering quality bikes and service.",
   phone: "9758810331",
@@ -516,6 +517,7 @@ export const dealerInfo = {
   address: "Nakatia Bridge, Mohanpur, Bareilly, Uttar Pradesh 243123",
   hours: "Mon-Sat: 9 AM - 7 PM | Sun: 10 AM - 6 PM",
   mapUrl: "https://maps.app.goo.gl/EV3Ha5qiSXnyihhi9",
+  googleBusinessUrl: "https://share.google/fnNZuW6b3A6cfiNk6",
   searchUrl: "https://www.google.com/search?q=ASHOK+HERO%2C+Nakatia+Bridge%2C+Mohanpur%2C+Bareilly%2C+Uttar+Pradesh+243123&oq=ASHOK+HERO%2C+Nakatia+Bridge%2C+Mohanpur%2C+Bareilly%2C+Uttar+Pradesh+243123&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPNIBBzg1MWowajSoAgCwAgE&sourceid=chrome&source=chrome.ob&ie=UTF-8",
 };
 
@@ -626,4 +628,3 @@ export const financePartners = [
     color: "bg-yellow-600",
   },
 ];
-

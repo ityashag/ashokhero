@@ -30,6 +30,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          REACT_APP_LEAD_WEBHOOK_URL: ${{ secrets.REACT_APP_LEAD_WEBHOOK_URL }}
 
       - name: Deploy build to gh-pages
         uses: peaceiris/actions-gh-pages@v4

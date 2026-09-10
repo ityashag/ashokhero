@@ -1,5 +1,9 @@
 import React from "react";
-import { ArrowUpRight, Clock, Mail, MapPin, Phone } from "lucide-react";
+import ArrowUpRight from "lucide-react/dist/esm/icons/arrow-up-right";
+import Clock from "lucide-react/dist/esm/icons/clock";
+import Mail from "lucide-react/dist/esm/icons/mail";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import Phone from "lucide-react/dist/esm/icons/phone";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { dealerInfo } from "../mock";
 
@@ -10,7 +14,7 @@ const contactCards = [
     content: `${dealerInfo.phone} / ${dealerInfo.secondaryPhone}`,
     href: `tel:${dealerInfo.phone}`,
     color: "text-red-400",
-    bg: "bg-red-600/12 border-red-600/15",
+    bg: "bg-red-600/[0.12] border-red-600/[0.15]",
   },
   {
     icon: MapPin,
@@ -21,14 +25,14 @@ const contactCards = [
     external: true,
     link: "Open location",
     color: "text-blue-400",
-    bg: "bg-blue-600/12 border-blue-600/15",
+    bg: "bg-blue-600/[0.12] border-blue-600/[0.15]",
   },
   {
     icon: Clock,
     title: "Showroom hours",
     content: dealerInfo.hours,
     color: "text-emerald-400",
-    bg: "bg-emerald-600/12 border-emerald-600/15",
+    bg: "bg-emerald-600/[0.12] border-emerald-600/[0.15]",
   },
   {
     icon: Mail,
@@ -36,7 +40,7 @@ const contactCards = [
     content: dealerInfo.email,
     href: `mailto:${dealerInfo.email}`,
     color: "text-amber-300",
-    bg: "bg-amber-500/12 border-amber-500/15",
+    bg: "bg-amber-500/[0.12] border-amber-500/[0.15]",
   },
 ];
 
@@ -67,7 +71,7 @@ const ContactSection = () => {
               <br />
               <span className="text-white/25">Your Next Ride</span>
             </h2>
-            <p className="max-w-sm text-sm leading-relaxed text-white/45 sm:text-right sm:text-base">
+            <p className="max-w-sm text-sm leading-relaxed text-white/[0.45] sm:text-right sm:text-base">
               Visit the showroom for model availability, on-road prices, test rides, and service support.
             </p>
           </div>
@@ -82,7 +86,7 @@ const ContactSection = () => {
             return (
               <div
                 key={card.title}
-                className="group rounded-2xl border border-white/[0.07] bg-[#111114] p-5 transition-colors duration-300 hover:border-white/15 sm:p-6"
+                className="group rounded-2xl border border-white/[0.07] bg-[#111114] p-5 transition-colors duration-300 hover:border-white/[0.15] sm:p-6"
                 style={{ transitionDelay: `${index * 70}ms` }}
               >
                 <div className={`mb-4 flex h-10 w-10 items-center justify-center rounded-xl border ${card.bg}`}>
@@ -118,7 +122,7 @@ const ContactSection = () => {
                         href={card.searchHref}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-white/45 hover:text-white"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-white/[0.45] hover:text-white"
                       >
                         Search on Google
                         <ArrowUpRight size={11} />

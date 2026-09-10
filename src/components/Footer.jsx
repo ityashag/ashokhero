@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Phone, MapPin, Mail, Facebook, Instagram, Search, Heart } from "lucide-react";
+import Facebook from "lucide-react/dist/esm/icons/facebook";
+import Instagram from "lucide-react/dist/esm/icons/instagram";
+import Mail from "lucide-react/dist/esm/icons/mail";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import Phone from "lucide-react/dist/esm/icons/phone";
+import Search from "lucide-react/dist/esm/icons/search";
 import { dealerInfo } from "../mock";
 
 const Footer = () => {
@@ -38,7 +43,7 @@ const Footer = () => {
     {
       Icon: Search,
       label: "Google",
-      href: "https://share.google/Geroq91EW7NV0vfSs",
+      href: dealerInfo.googleBusinessUrl,
       hover: "hover:bg-blue-500",
     },
     {
@@ -68,13 +73,13 @@ const Footer = () => {
                 </div>
               </div>
             </Link>
-            <p className="text-white/35 text-xs sm:text-sm leading-relaxed mb-5 max-w-xs">
+            <p className="text-white/[0.35] text-xs sm:text-sm leading-relaxed mb-5 max-w-xs">
               {dealerInfo.tagline}
             </p>
             <div className="space-y-2.5">
               <a
                 href={`tel:${dealerInfo.phone}`}
-                className="flex items-center gap-2.5 text-white/35 hover:text-white transition-colors duration-200 text-xs sm:text-sm group"
+                className="flex items-center gap-2.5 text-white/[0.35] hover:text-white transition-colors duration-200 text-xs sm:text-sm group"
               >
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center group-hover:bg-red-600/15 group-hover:border-red-600/20 transition-all duration-200 flex-shrink-0">
                   <Phone size={12} className="text-red-500" />
@@ -83,18 +88,18 @@ const Footer = () => {
               </a>
               <a
                 href={`mailto:${dealerInfo.email}`}
-                className="flex items-center gap-2.5 text-white/35 hover:text-white transition-colors duration-200 text-xs sm:text-sm group"
+                className="flex items-center gap-2.5 text-white/[0.35] hover:text-white transition-colors duration-200 text-xs sm:text-sm group"
               >
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center group-hover:bg-red-600/15 group-hover:border-red-600/20 transition-all duration-200 flex-shrink-0">
                   <Mail size={12} className="text-red-500" />
                 </div>
                 <span className="break-all">{dealerInfo.email}</span>
               </a>
-              <div className="flex items-start gap-2.5 text-white/35 text-xs sm:text-sm">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div className="flex items-center gap-2.5 text-xs text-white/[0.35] sm:text-sm">
+                <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.04] sm:h-8 sm:w-8">
                   <MapPin size={12} className="text-red-500" />
                 </div>
-                {dealerInfo.address}
+                <span className="min-w-0 flex-1 leading-relaxed">{dealerInfo.address}</span>
               </div>
             </div>
           </div>
@@ -111,14 +116,14 @@ const Footer = () => {
                     {l.to ? (
                       <Link
                         to={l.to}
-                        className="text-white/35 hover:text-white transition-colors duration-200 text-xs sm:text-sm"
+                        className="text-white/[0.35] hover:text-white transition-colors duration-200 text-xs sm:text-sm"
                       >
                         {l.name}
                       </Link>
                     ) : (
                       <a
                         href={l.href}
-                        className="text-white/35 hover:text-white transition-colors duration-200 text-xs sm:text-sm"
+                        className="text-white/[0.35] hover:text-white transition-colors duration-200 text-xs sm:text-sm"
                       >
                         {l.name}
                       </a>
@@ -134,14 +139,15 @@ const Footer = () => {
         <div className="border-t border-white/[0.05] pt-6 sm:pt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
             <p className="text-white/25 text-[10px] sm:text-xs text-center sm:text-left">
-              &copy; {year} Ashok Hero. All rights reserved. | Authorized Hero
-              MotoCorp Dealer
+              &copy; {year} Ashok Sales. Authorized Hero MotoCorp dealer in Bareilly.
             </p>
             <div className="flex items-center gap-1.5 sm:gap-2">
               {socials.map(({ Icon, label, href, hover }) => (
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-white/30 hover:text-white ${hover} transition-all duration-200`}
                 >
@@ -150,10 +156,8 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <p className="text-center mt-5 sm:mt-6 text-[9px] sm:text-[10px] text-white/15">
-            Made with{" "}
-            <Heart size={9} className="inline text-red-600 fill-red-600 mx-0.5" />{" "}
-            for Hero MotoCorp enthusiasts
+          <p className="text-center mt-5 sm:mt-6 text-[9px] sm:text-[10px] text-white/[0.15]">
+            Product availability and on-road price are confirmed by the showroom.
           </p>
         </div>
       </div>

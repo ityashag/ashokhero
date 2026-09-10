@@ -75,8 +75,6 @@ export const saveLead = (lead) => {
     campaign: getCampaignContext(),
     createdAt: new Date().toISOString(),
   };
-  const leads = storage.get("ashok_sales_leads", []);
-  storage.set("ashok_sales_leads", [enrichedLead, ...leads].slice(0, 100));
   trackLeadEvent("lead_submitted", {
     model: lead.model,
     channel: lead.channel,
@@ -86,12 +84,40 @@ export const saveLead = (lead) => {
   return enrichedLead;
 };
 
+export const sendLeadToEndpoint = async (lead) => {
+  const endpoint = process.env.REACT_APP_LEAD_WEBHOOK_URL?.trim();
+  if (!endpoint) return false;
+
+  const formBody = new URLSearchParams({
+    payload: JSON.stringify(lead),
+    name: lead.name || "",
+    phone: lead.phone || "",
+    model: lead.model || "",
+    intent: lead.intent || "",
+    pincode: lead.pincode || "",
+    preferredTime: lead.preferredTime || "",
+    consent: lead.consent ? "yes" : "no",
+  });
+
+  await fetch(endpoint, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+    body: formBody.toString(),
+  });
+
+  return true;
+};
+
 export const buildWhatsAppLeadUrl = (phoneNumber, lead = {}) => {
   const lines = [
-    "Hello Ashok Hero, I want my best Hero offer.",
+    "Hello Ashok Hero, I am enquiring from your website.",
     lead.model ? `Model: ${lead.model}` : null,
     lead.intent ? `Need: ${lead.intent}` : null,
     lead.name ? `Name: ${lead.name}` : null,
+    lead.phone ? `Phone: ${lead.phone}` : null,
+    lead.pincode ? `Pincode: ${lead.pincode}` : null,
+    lead.preferredTime ? `Preferred callback: ${lead.preferredTime}` : null,
   ].filter(Boolean);
 
   return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(lines.join("\n"))}`;

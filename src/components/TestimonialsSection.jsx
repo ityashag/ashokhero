@@ -1,116 +1,113 @@
 import React from "react";
-import { Star, Quote } from "lucide-react";
-import { useScrollReveal } from "../hooks/useScrollReveal";
-import { testimonials } from "../mock";
+import ArrowUpRight from "lucide-react/dist/esm/icons/arrow-up-right";
+import BadgeCheck from "lucide-react/dist/esm/icons/badge-check";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import MessageSquareText from "lucide-react/dist/esm/icons/message-square-text";
+import Search from "lucide-react/dist/esm/icons/search";
+import Star from "lucide-react/dist/esm/icons/star";
+import { dealerInfo } from "../mock";
+import { trackLeadEvent } from "../lib/adTracking";
 
-const TestimonialsSection = () => {
-  const [headerRef, headerVisible] = useScrollReveal();
-  const [cardsRef, cardsVisible] = useScrollReveal(0.05);
-  const [statsRef, statsVisible] = useScrollReveal(0.2);
-
-  return (
-    <section className="py-20 sm:py-28 bg-[#0C0C0F] relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-
-      <div className="max-w-7xl mx-auto section-padding">
-        <div
-          ref={headerRef}
-          className={`mb-10 sm:mb-14 reveal ${headerVisible ? "visible" : ""}`}
-        >
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-8 h-px bg-amber-500" />
-            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-amber-500">
-              Customer Reviews
-            </span>
+const TestimonialsSection = () => (
+  <section id="reviews" className="relative overflow-hidden bg-[#F2EFE8] py-20 text-[#151515] sm:py-28">
+    <div className="hero-grid absolute inset-0 opacity-35" />
+    <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
+      <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+        <div>
+          <div className="mb-5 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.22em] text-red-600 sm:text-xs">
+            <span className="h-px w-9 bg-red-600" />
+            Local trust
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-8">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.05]">
-              What Our
-              <br />
-              <span className="text-white/25">Customers Say</span>
-            </h2>
-            <p className="text-white/45 text-sm sm:text-base max-w-xs leading-relaxed sm:text-right">
-              Join thousands of satisfied customers who trust Ashok Hero.
-            </p>
-          </div>
+          <h2 className="font-display text-5xl font-black uppercase leading-[0.86] tracking-[-0.025em] sm:text-7xl lg:text-8xl">
+            See us on
+            <span className="block text-red-600">Google.</span>
+          </h2>
         </div>
-
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
-        >
-          {testimonials.map((t, idx) => (
-            <div
-              key={t.id}
-              className="group bg-[#111114] rounded-2xl border border-white/[0.07] hover:border-amber-500/20 p-5 sm:p-6"
-              style={{
-                transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
-                transitionDelay: `${idx * 80}ms`,
-                transform: cardsVisible ? "translateY(0)" : "translateY(24px)",
-                opacity: cardsVisible ? 1 : 0,
-              }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <Quote size={22} className="text-red-600/20" />
-                <div className="flex gap-0.5">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={11}
-                      className="fill-amber-400 text-amber-400"
-                    />
-                  ))}
-                </div>
-              </div>
-              <p className="text-white/50 text-xs sm:text-sm italic leading-relaxed mb-5">
-                "{t.comment}"
-              </p>
-              <div className="flex items-center gap-2.5 pt-4 border-t border-white/[0.07]">
-                <div className="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0">
-                  {t.name.charAt(0)}
-                </div>
-                <div>
-                  <div className="font-semibold text-white text-xs sm:text-sm">
-                    {t.name}
-                  </div>
-                  <div className="text-[10px] sm:text-xs text-white/30">
-                    {t.location}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Stats */}
-        <div
-          ref={statsRef}
-          className={`mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 reveal ${
-            statsVisible ? "visible" : ""
-          }`}
-        >
-          {[
-            { val: "5.0/5", label: "Google Rating", color: "text-amber-400" },
-            { val: "1,380", label: "Google Reviews", color: "text-white" },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className="text-center bg-[#111114] rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/[0.07]"
-            >
-              <div
-                className={`text-2xl sm:text-3xl md:text-4xl font-black mb-0.5 ${s.color}`}
-              >
-                {s.val}
-              </div>
-              <div className="text-white/30 text-[10px] sm:text-xs uppercase tracking-wider">
-                {s.label}
-              </div>
-            </div>
-          ))}
+        <div className="max-w-xl lg:justify-self-end">
+          <p className="text-base font-semibold leading-relaxed text-black/[0.58] sm:text-lg">
+            Read current customer feedback, check the live business details,
+            get directions, or share your own experience on the Ashok Hero
+            Google Business Profile.
+          </p>
+          <p className="mt-3 text-xs font-semibold leading-relaxed text-black/40">
+            We do not copy or invent reviews on this website. Google remains the
+            live source for customer ratings and review text.
+          </p>
         </div>
       </div>
-    </section>
-  );
-};
+
+      <div className="mt-10 grid gap-4 lg:grid-cols-[1.3fr_0.7fr]">
+        <a
+          href={dealerInfo.googleBusinessUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackLeadEvent("google_profile_clicked", { placement: "reviews" })}
+          className="group relative min-h-[350px] overflow-hidden rounded-[2rem] bg-[#151515] p-7 text-white transition hover:-translate-y-1 sm:p-10"
+        >
+          <div className="absolute -right-16 -top-16 h-72 w-72 rounded-full bg-red-600/25 blur-3xl transition duration-700 group-hover:scale-125" />
+          <div className="absolute bottom-0 right-2 font-display text-[10rem] font-black leading-[0.65] text-white/[0.035] sm:text-[15rem]">
+            G
+          </div>
+          <div className="relative flex h-full flex-col justify-between gap-16">
+            <div className="flex items-start justify-between gap-4">
+              <span className="grid h-12 w-12 place-items-center rounded-full bg-white text-[#151515]">
+                <Search size={20} />
+              </span>
+              <ArrowUpRight size={28} className="text-white/[0.35] transition group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-red-400" />
+            </div>
+            <div>
+              <div className="mb-3 flex gap-1 text-amber-400" aria-hidden="true">
+                {[0, 1, 2, 3, 4].map((item) => (
+                  <Star key={item} size={16} fill="currentColor" />
+                ))}
+              </div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-red-400">
+                Live Google Business Profile
+              </p>
+              <h3 className="mt-3 max-w-2xl font-display text-4xl font-black uppercase leading-[0.9] sm:text-6xl">
+                Read reviews &amp; view business details
+              </h3>
+            </div>
+          </div>
+        </a>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+          <a
+            href={dealerInfo.mapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex min-h-[165px] flex-col justify-between rounded-[2rem] bg-red-600 p-7 text-white transition hover:bg-red-700"
+          >
+            <div className="flex items-start justify-between">
+              <MapPin size={22} />
+              <ArrowUpRight size={20} className="transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </div>
+            <div>
+              <p className="text-[9px] font-black uppercase tracking-[0.18em] text-white/60">Visit us</p>
+              <h3 className="mt-1 font-display text-3xl font-black uppercase">Get directions</h3>
+            </div>
+          </a>
+          <a
+            href={dealerInfo.googleBusinessUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex min-h-[165px] flex-col justify-between rounded-[2rem] border border-black/10 bg-white/[0.55] p-7 transition hover:bg-white"
+          >
+            <div className="flex items-start justify-between">
+              <MessageSquareText size={22} className="text-red-600" />
+              <ArrowUpRight size={20} className="text-black/30 transition group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-red-600" />
+            </div>
+            <div>
+              <p className="flex items-center gap-1 text-[9px] font-black uppercase tracking-[0.18em] text-black/40">
+                <BadgeCheck size={12} className="text-emerald-600" /> Your experience matters
+              </p>
+              <h3 className="mt-1 font-display text-3xl font-black uppercase">Leave a review</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 export default TestimonialsSection;

@@ -1,180 +1,142 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Phone, ChevronRight } from "lucide-react";
+import Menu from "lucide-react/dist/esm/icons/menu";
+import MessageCircle from "lucide-react/dist/esm/icons/message-circle";
+import Phone from "lucide-react/dist/esm/icons/phone";
+import X from "lucide-react/dist/esm/icons/x";
 import { dealerInfo } from "../mock";
+import { buildWhatsAppLeadUrl, trackLeadEvent } from "../lib/adTracking";
+
+const links = [
+  { name: "Models", href: "products" },
+  { name: "Why Choose Us", href: "services" },
+  { name: "Google", href: "reviews" },
+  { name: "Contact", href: "contact" },
+];
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 30);
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const closeMobile = useCallback(() => setIsMobileMenuOpen(false), []);
-
   const scrollTo = useCallback(
     (id) => {
-      closeMobile();
-      if (!isHome) {
+      setIsOpen(false);
+      if (location.pathname !== "/") {
         navigate("/");
-        setTimeout(() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-        }, 400);
+        window.setTimeout(
+          () => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }),
+          350
+        );
       } else {
-        setTimeout(() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-        }, 100);
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       }
     },
-    [closeMobile, isHome, navigate]
+    [location.pathname, navigate]
   );
 
-  const homeLinks = [
-    { name: "Home", href: "home" },
-    { name: "Products", href: "products" },
-    { name: "Services", href: "services" },
-    { name: "Contact", href: "contact" },
-  ];
-
-  const pageLinks = [];
+  const whatsappUrl = buildWhatsAppLeadUrl(dealerInfo.whatsappNumber, {
+    intent: "New bike enquiry",
+  });
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
       <nav
-        className={`transition-all duration-500 ease-out ${
-          isScrolled
-            ? "bg-black/90 backdrop-blur-2xl border-b border-white/[0.06]"
-            : "bg-gradient-to-b from-black/60 to-transparent"
+        className={`mx-auto max-w-[1400px] rounded-2xl border transition-all duration-300 ${
+          isScrolled || isOpen
+            ? "border-black/10 bg-[#F8F6F1]/95 shadow-[0_12px_40px_rgba(0,0,0,.08)] backdrop-blur-xl"
+            : "border-black/[0.08] bg-[#F2EFE8]/75 backdrop-blur-md"
         }`}
       >
-        <div className="max-w-7xl mx-auto section-padding py-4 sm:py-5">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center shadow-lg shadow-red-600/30 group-hover:shadow-red-600/50 transition-shadow duration-200">
-                <span className="text-white font-black text-xs tracking-tight">AH</span>
-              </div>
-              <div>
-                <div className="text-white font-extrabold text-sm leading-tight tracking-wide">
-                  ASHOK HERO
-                </div>
-                <div className="text-white/35 text-[9px] font-medium leading-tight tracking-wider uppercase">
-                  Hero MotoCorp · Bareilly
-                </div>
-              </div>
-            </Link>
+        <div className="flex h-16 items-center justify-between px-4 sm:px-6">
+          <Link to="/" className="flex items-center gap-3" aria-label="Ashok Hero home">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-red-600 font-display text-base font-black text-white">
+              AH
+            </span>
+            <span>
+              <span className="block font-display text-lg font-black uppercase leading-none tracking-tight text-[#151515]">
+                Ashok Hero
+              </span>
+              <span className="mt-1 block text-[8px] font-extrabold uppercase tracking-[0.18em] text-black/[0.42]">
+                Nakatia · Bareilly
+              </span>
+            </span>
+          </Link>
 
-            {/* Desktop nav links */}
-            <div className="hidden lg:flex items-center gap-0.5">
-              {homeLinks.map((link) => (
-                <button
-                  key={link.name}
-                  onClick={() => scrollTo(link.href)}
-                  className="px-4 py-2 text-sm font-medium text-white/60 hover:text-white transition-colors duration-200 rounded-lg hover:bg-white/5"
-                >
-                  {link.name}
-                </button>
-              ))}
-              <div className="w-px h-4 bg-white/15 mx-1.5" />
-              {pageLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.to}
-                  className={`px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-lg ${
-                    location.pathname === link.to
-                      ? "text-red-400 bg-red-600/10"
-                      : "text-white/60 hover:text-white hover:bg-white/5"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-
-            {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-4">
-              <a
-                href={`tel:${dealerInfo.phone}`}
-                className="flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors duration-200"
-              >
-                <Phone size={13} className="text-red-500" />
-                <span>{dealerInfo.phone} / {dealerInfo.secondaryPhone}</span>
-              </a>
+          <div className="hidden items-center gap-1 lg:flex">
+            {links.map((link) => (
               <button
-                onClick={() => scrollTo("contact")}
-                className="flex items-center gap-1.5 px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white text-sm font-semibold rounded-xl shadow-lg shadow-red-600/20 hover:shadow-red-500/30 transition-all duration-200"
+                key={link.name}
+                onClick={() => scrollTo(link.href)}
+                className="rounded-full px-4 py-2 text-xs font-extrabold text-black/[0.58] transition hover:bg-black/[0.05] hover:text-black"
               >
-                Get Offer
-                <ChevronRight size={14} />
+                {link.name}
               </button>
-            </div>
-
-            {/* Mobile toggle */}
-            <button
-              className="lg:hidden p-2 text-white/70 hover:text-white rounded-lg hover:bg-white/5 transition-colors duration-200"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
+            ))}
           </div>
+
+          <div className="hidden items-center gap-2 lg:flex">
+            <a
+              href={`tel:${dealerInfo.phone}`}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-black/60 transition hover:border-red-600/30 hover:text-red-600"
+              aria-label={`Call ${dealerInfo.phone}`}
+            >
+              <Phone size={16} />
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackLeadEvent("whatsapp_clicked", { placement: "header" })}
+              className="inline-flex items-center gap-2 rounded-full bg-[#151515] px-5 py-3 text-xs font-extrabold text-white transition hover:bg-emerald-700"
+            >
+              <MessageCircle size={15} /> WhatsApp us
+            </a>
+          </div>
+
+          <button
+            onClick={() => setIsOpen((value) => !value)}
+            className="grid h-10 w-10 place-items-center rounded-full border border-black/10 text-[#151515] lg:hidden"
+            aria-expanded={isOpen}
+            aria-label="Toggle navigation"
+          >
+            {isOpen ? <X size={19} /> : <Menu size={19} />}
+          </button>
         </div>
 
-        {/* Mobile dropdown */}
-        <div
-          className={`lg:hidden overflow-hidden transition-all duration-400 ease-out ${
-            isMobileMenuOpen
-              ? "max-h-[600px] opacity-100"
-              : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="max-w-7xl mx-auto section-padding pb-5">
-            <div className="bg-zinc-900/95 backdrop-blur-xl rounded-2xl border border-white/[0.07] p-3 space-y-0.5">
-              {homeLinks.map((link) => (
-                <button
-                  key={link.name}
-                  onClick={() => scrollTo(link.href)}
-                  className="block w-full text-left px-4 py-3 text-white/65 font-medium hover:text-white hover:bg-white/5 rounded-xl transition-colors duration-200 text-sm"
-                >
-                  {link.name}
-                </button>
-              ))}
-              <div className="border-t border-white/[0.07] my-1" />
-              {pageLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.to}
-                  onClick={closeMobile}
-                  className={`block px-4 py-3 font-medium rounded-xl transition-colors duration-200 text-sm ${
-                    location.pathname === link.to
-                      ? "text-red-400 bg-red-600/10"
-                      : "text-white/65 hover:text-white hover:bg-white/5"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <div className="flex flex-col gap-2 pt-3 mt-1 border-t border-white/[0.07]">
-                <a
-                  href={`tel:${dealerInfo.phone}`}
-                  className="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold border border-white/10 text-white/70 rounded-xl hover:bg-white/5 transition-colors duration-200"
-                >
-                  <Phone size={14} className="text-red-500" />
-                  {dealerInfo.phone} / {dealerInfo.secondaryPhone}
-                </a>
-                <button
-                  onClick={() => scrollTo("contact")}
-                  className="w-full py-2.5 text-sm font-semibold bg-red-600 text-white rounded-xl hover:bg-red-500 transition-colors duration-200"
-                >
-                  Get Offer
-                </button>
-              </div>
+        <div className={`overflow-hidden transition-all duration-300 lg:hidden ${isOpen ? "max-h-96" : "max-h-0"}`}>
+          <div className="border-t border-black/[0.07] p-3">
+            {links.map((link) => (
+              <button
+                key={link.name}
+                onClick={() => scrollTo(link.href)}
+                className="block w-full rounded-xl px-4 py-3 text-left text-sm font-bold text-black/[0.65] hover:bg-black/[0.04]"
+              >
+                {link.name}
+              </button>
+            ))}
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              <a
+                href={`tel:${dealerInfo.phone}`}
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-black/10 px-3 py-3 text-xs font-extrabold"
+              >
+                <Phone size={14} /> Call now
+              </a>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-3 py-3 text-xs font-extrabold text-white"
+              >
+                <MessageCircle size={14} /> WhatsApp
+              </a>
             </div>
           </div>
         </div>

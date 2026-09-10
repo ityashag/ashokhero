@@ -1,5 +1,9 @@
 import React from "react";
-import { Zap, Settings, CreditCard, Phone, ArrowRight } from "lucide-react";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import CreditCard from "lucide-react/dist/esm/icons/credit-card";
+import Phone from "lucide-react/dist/esm/icons/phone";
+import Settings from "lucide-react/dist/esm/icons/settings";
+import Zap from "lucide-react/dist/esm/icons/zap";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { dealerInfo, services } from "../mock";
 
@@ -36,7 +40,7 @@ const ServicesSection = () => {
               <br />
               <span className="text-red-500">Every Time</span>
             </h2>
-            <p className="text-white/45 text-sm sm:text-base max-w-xs leading-relaxed sm:text-right">
+            <p className="text-white/[0.45] text-sm sm:text-base max-w-xs leading-relaxed sm:text-right">
               Genuine parts, trained technicians, and service you can trust.
             </p>
           </div>
@@ -121,7 +125,7 @@ const ServicesSection = () => {
             <h3 className="text-2xl sm:text-4xl font-black text-white mb-3 sm:mb-4">
               Ready to Service Your Hero?
             </h3>
-            <p className="text-sm sm:text-base text-white/45 mb-8 max-w-lg mx-auto">
+            <p className="text-sm sm:text-base text-white/[0.45] mb-8 max-w-lg mx-auto">
               Schedule your appointment today and keep your bike running like
               new with genuine Hero parts.
             </p>
@@ -142,7 +146,7 @@ const ServicesSection = () => {
               </button>
               <a
                 href={`tel:${dealerInfo.phone}`}
-                className="flex items-center justify-center gap-2 px-8 py-3.5 border border-white/12 text-white/80 text-sm font-semibold rounded-xl hover:bg-white/5 hover:border-white/20 transition-all duration-200"
+                className="flex items-center justify-center gap-2 px-8 py-3.5 border border-white/[0.12] text-white/80 text-sm font-semibold rounded-xl hover:bg-white/5 hover:border-white/20 transition-all duration-200"
               >
                 <Phone size={15} className="text-red-500" />
                 Call: {dealerInfo.phone} / {dealerInfo.secondaryPhone}
