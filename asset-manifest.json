@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ashokhero/static/css/main.c93bd441.css",
+    "main.js": "/ashokhero/static/js/main.21db1235.js",
+    "index.html": "/ashokhero/index.html",
+    "main.c93bd441.css.map": "/ashokhero/static/css/main.c93bd441.css.map",
+    "main.21db1235.js.map": "/ashokhero/static/js/main.21db1235.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c93bd441.css",
+    "static/js/main.21db1235.js"
+  ]
+}
