@@ -12,10 +12,29 @@ or email yash.cse21@gmail.com. Do not post customer details or credentials in is
 - Actions are pinned to commit SHAs. Builds use read-only tokens; only the Pages
   deployment job receives Pages/OIDC permissions. No job needs repository write access.
 - Production is published through the `github-pages` environment, limited to `main`.
-- Dependabot proposes dependency/action updates. Review and test them before merging.
+- Dependency alerts remain enabled, but automatic security-fix PRs are disabled and
+  no Dependabot version-update schedule is configured. Review alerts and apply
+  needed updates manually through a tested PR.
 - A single maintainer can merge a passing PR. Add one required independent approval
   when a second trusted maintainer is available. Account owners should use a passkey
   or two-factor authentication and keep recovery codes offline.
+
+## Workflow abuse and spending controls
+
+- All external fork contributors require maintainer approval to run workflows.
+- PR validation runs only on PRs targeting `main`, with superseded runs cancelled.
+- Production publishes only on `main` updates or an explicit manual run on `main`.
+- Jobs use standard `ubuntu-latest` runners and have 10–15 minute timeouts.
+- No paid/larger/self-hosted runners, AI-agent actions, scheduled dependency PRs or
+  automatic merging are configured. No npm Actions cache is stored; the deployment
+  artifact expires after one day.
+- Public-repository standard runner minutes are free under GitHub's current billing
+  rules. Storage, other repositories, larger runners and separate AI products have
+  their own billing. These repository controls do not set an account-wide spending cap.
+- Review automation before approving fork workflows: a timeout is per job, not an
+  account budget. Workflow rules cannot stop all public PR submissions.
+
+Billing reference: https://docs.github.com/en/billing/concepts/product-billing/github-actions
 
 ## Customer data and credentials
 
