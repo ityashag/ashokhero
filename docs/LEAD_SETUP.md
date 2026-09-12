@@ -2,6 +2,12 @@
 
 The landing page already opens a pre-filled WhatsApp enquiry to `+91 97588 10331`. To also keep a private, searchable owner-side lead list, connect the included Google Apps Script to a Google Sheet.
 
+**Production readiness:** the script below is an integration starter. Before exposing
+it to paid traffic, implement server-side field/consent validation, formula-injection
+protection, abuse limits and an acknowledged response. The current `no-cors` request
+cannot confirm delivery. See [SECURITY.md](../SECURITY.md). A webhook URL embedded in
+this React application is public even when passed through an Actions secret.
+
 ## Connect the private lead sheet
 
 1. Create a private Google Sheet owned by the dealership account.
